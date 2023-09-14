@@ -1,0 +1,73 @@
+﻿@model CadastroClientes.Models.UsuarioModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" onsubmit="formSend(evento)" id="meuForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Perfil" class="control-label"></label>
+                <select asp-for="Perfil" class="form-control" />
+                <option value="1">Padrão</option>
+                <option value="2">Administrador</option>
+                <span asp-validation-for="Perfil" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group mt-3">
+                <input type="submit" value="Salvar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a class="btn btn-primary" asp-controller="Usuario" asp-action="Index">Voltar</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function formSend(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Deseja editar este contato?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, edite isto!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const meuForm = document.getElementById('meuForm');
+                    meuForm.submit();
+                }
+            })
+
+        }
+    </script>
+}

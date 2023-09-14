@@ -1,0 +1,58 @@
+﻿@model ContatoModel
+@{
+    ViewData["Title"] = "Editar Contatos.";
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">Editar Contatos </h1>
+
+</div>
+
+<form method="post" onsubmit="sendForm(event)" id="myForm">
+    <input type="hidden" asp-for="Id">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Nome</label>
+        <input type="text" class="form-control" placeholder="Insira seu nome" asp-for="Nome">
+        @Html.ValidationMessageFor(x => x.Nome)
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputPassword1">E-mail</label>
+        <input type="email" class="form-control" placeholder="Insira seu e-mail" asp-for="Email">
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputPassword1">Número de telefone</label>
+        <input type="text" class="form-control" placeholder="Insira seu celular" asp-for="Celular">
+        @Html.ValidationMessageFor(x => x.Celular)
+    </div>
+    <br />
+
+    <button type="submit" id="save" onclick="saveEdit()" class="btn btn-primary">Alterar</button>
+    <a class="btn btn-secondary" asp-controller="Contato" asp-action="Index" role="button">Voltar</a>
+
+</form>
+
+@section Scripts{
+    <script>
+        function sendForm(e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Deseja editar este contato?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, edite isto!'
+            }).then((result) =>{
+                if(result.isConfirmed){
+                    const myForm = document.getElementById('myForm');
+                    myForm.submit();
+                }
+            })
+            
+        }
+    </script>
+}
